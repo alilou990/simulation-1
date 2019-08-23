@@ -7,7 +7,6 @@ export default class Form extends Component {
     constructor(){
         super();
         this.state = {
-          
           img: '',
           name: '',
           price: 0

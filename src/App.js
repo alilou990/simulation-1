@@ -14,7 +14,8 @@ export default class App extends Component {
   constructor(){
     super();
     this.state = {
-      inventory: []
+      inventory: [],
+      currentItem: []
     }
   }
 
@@ -41,7 +42,7 @@ export default class App extends Component {
       <div className='main-container'>
         <Header />
         <Dashboard inventory={this.state.inventory} getInventory={this.componentDidMount}/>
-        <Form getInventory={this.componentDidMount}/>
+        <Form getInventory={this.componentDidMount} current={this.state.currentItem}/>
       </div>
     )
   }
