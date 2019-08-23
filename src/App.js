@@ -21,16 +21,18 @@ export default class App extends Component {
   
 
   componentDidMount() {
-       axios.get('/api/inventory').then((response) => {
-        console.log(response.data)
-        this.setState({
-          inventory: response.data
-        })
+    axios.get('/api/inventory').then((response) => {
+      console.log(response.data)
+      this.setState({
+        inventory: response.data
       })
-      .catch(err => {
-        console.log(err)
     })
+    .catch(err => {
+      console.log(err)
+  })
     };
+
+    
 
   
 
@@ -38,8 +40,8 @@ export default class App extends Component {
     return (
       <div className='main-container'>
         <Header />
-        <Dashboard inventory={this.state.inventory} />
-        <Form inventory={this.componentDidMount}/>
+        <Dashboard inventory={this.state.inventory} getInventory={this.componentDidMount}/>
+        <Form getInventory={this.componentDidMount}/>
       </div>
     )
   }

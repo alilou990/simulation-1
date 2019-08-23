@@ -28,7 +28,7 @@ massive(CONNECTION_STRING).then((dbInstance) => {
 app.get('/api/inventory', ctrl.getInventory);
 app.post('/api/inventory', ctrl.createItem);
 // app.put();
-//app.delete();
+app.delete('/api/inventory/:id', ctrl.deleteItem);
 
 app.listen(8080, () => {
     console.log('Server Running!')

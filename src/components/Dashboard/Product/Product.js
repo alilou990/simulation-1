@@ -6,6 +6,7 @@ const Product = (props) => {
             <img src={props.itemImg} alt={"item"}/>
             <h1>{props.itemName}</h1>
             <h1>{props.itemPrice}</h1>
+            <button onClick={() => props.deleteItem(props.item.id)}>Delete</button>
         </div>
     )
 }

@@ -19,8 +19,20 @@ const createItem = (req, res) => {
         })
 }
 
+const deleteItem = (req, res) => {
+    const dbInstance = req.app.get('db');
+    const {id} = req.params;
+    dbInstance.delete_item(id)
+        .then(() => res.status(200).send('Item was deleted!'))
+        .catch(err => {
+            res.sendStatus(500)
+            console.log(err)
+        })
+}
+
 
 module.exports = {
     getInventory,
-    createItem
+    createItem,
+    deleteItem
 }

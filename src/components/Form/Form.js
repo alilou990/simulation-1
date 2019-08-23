@@ -39,7 +39,7 @@ export default class Form extends Component {
         }
         axios.post('/api/inventory', body)
           .then((response) => {
-            this.props.inventory()
+            this.props.getInventory()
             this.resetInputs()
           })
       }
