@@ -1,7 +1,10 @@
-require('dotenv').config()
+require('dotenv').config();
 const express = require('express');
+const massive = require('massive');
 const cors = require('cors');
-const massive = require('massive')
+
+//controllers
+const ctrl = require('./controller')
 
 //Set up app
 const app = express();
@@ -13,17 +16,18 @@ const {
 
 //TLM
 app.use(express.json());
-app.use(cors());
+app.use(cors())
 
 massive(CONNECTION_STRING).then((dbInstance) => {
     app.set('db', dbInstance);
     console.log('Database Running!')
 })
+.catch(err => console.log(err));
 
 //ENDPOINTS
-//app.get();
-//app.post();
-//app.put();
+app.get('/api/inventory', ctrl.getInventory);
+app.post('/api/inventory', ctrl.createItem);
+// app.put();
 //app.delete();
 
 app.listen(8080, () => {
