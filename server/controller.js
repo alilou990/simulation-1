@@ -8,6 +8,17 @@ const getInventory = (req, res) => {
         })
 }
 
+const getItem = (req, res) => {
+    const dbInstance = req.app.get('db');
+    const {id} = req.params
+    dbInstance.get_item(id)
+        .then((product) => res.status(200).send(product))
+        .catch(err => {
+            res.sendStatus(500)
+            console.log(err)
+        })
+}
+
 const createItem = (req, res) => {
     const dbInstance = req.app.get('db');
     const {name, price, img} = req.body;
@@ -30,9 +41,19 @@ const deleteItem = (req, res) => {
         })
 }
 
+const updateItem = (req, res) => {
+    const dbInstance = req.app.get('db')
+    const {id} = req.params
+    const {name, price, img} = req.body
+    dbInstance.update_item([name, price, img, id])
+        .then(() => res.status(200).send('Item was updated!'))
+}
+
 
 module.exports = {
     getInventory,
+    getItem,
     createItem,
-    deleteItem
+    deleteItem,
+    updateItem
 }

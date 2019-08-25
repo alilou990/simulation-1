@@ -26,8 +26,9 @@ massive(CONNECTION_STRING).then((dbInstance) => {
 
 //ENDPOINTS
 app.get('/api/inventory', ctrl.getInventory);
+app.get('/api/inventory/:id', ctrl.getItem)
 app.post('/api/inventory', ctrl.createItem);
-// app.put();
+app.put('/api/inventory/:id', ctrl.updateItem);
 app.delete('/api/inventory/:id', ctrl.deleteItem);
 
 app.listen(8080, () => {

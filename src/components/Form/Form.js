@@ -1,4 +1,5 @@
 import React, { Component } from 'react'
+import {Link} from 'react-router-dom'
 import axios from 'axios'
 import './Form.css'
 
@@ -9,7 +10,32 @@ export default class Form extends Component {
         this.state = {
           img: '',
           name: '',
-          price: 0
+          price: 0,
+          edit: false
+        }
+      }
+
+      componentDidMount(){
+        let {id} = this.props.match.params
+        if (id){
+          axios.get(`/api/inventory/${id}`)
+            .then(res => {
+              this.setState({
+                ...res.data,
+                edit: true
+              })
+            })
+        }
+        
+      }
+
+      componentDidUpdate(prevProps){
+        if(this.props.match.path !== prevProps.match.path){
+          this.setState({
+            img: '',
+            price: 0,
+            name: ''
+          })
         }
       }
     
@@ -24,6 +50,7 @@ export default class Form extends Component {
 
       resetInputs = () => {
         this.setState({
+            id: null,
             img: '',
             name: '',
             price: 0
@@ -37,11 +64,21 @@ export default class Form extends Component {
           price: this.state.price
         }
         axios.post('/api/inventory', body)
-          .then((response) => {
-            this.props.getInventory()
-            this.resetInputs()
-          })
+          .catch(err => {
+            console.log(err)
+        })
       }
+
+      updateItem = (id) => {
+        const body = {
+          img: this.state.img,
+          name: this.state.name,
+          price: this.state.price
+        }
+        axios.put(`/api/inventory/${id}`, body)
+      }
+
+     
 
 
     render() {
@@ -53,8 +90,15 @@ export default class Form extends Component {
                 <input name="name" onChange={(event) => this.handleOnChange(event)} value={this.state.name}/>
                 <label>Price:</label>
                 <input name="price" onChange={(event) => this.handleOnChange(event)} value={this.state.price}/>
-                <button onClick={this.createItem}>Add to Inventory</button>
-                <button onClick={this.resetInputs}>Cancel</button>
+                
+                <div className="form-buttons">
+                <Link to='/'><button onClick={this.resetInputs}>Cancel</button></Link>
+                  {!this.state.edit
+                  ? <Link to='/'><button onClick={this.createItem}>Add to Inventory</button></Link>
+                  : <Link to='/'><button onClick={()=> this.updateItem(this.props.match.params.id)}>Save Changes</button></Link>
+                  }
+                </div>
+                
             </div>
         )
     }

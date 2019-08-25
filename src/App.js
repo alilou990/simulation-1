@@ -1,5 +1,5 @@
 import React, { Component } from 'react';
-import axios from 'axios';
+import {Switch, Route} from 'react-router-dom'
 
 //stylesheets
 import 'reset-css'
@@ -11,29 +11,9 @@ import Header from './components/Header/Header'
 import Form from './components/Form/Form'
 
 export default class App extends Component {
-  constructor(){
-    super();
-    this.state = {
-      inventory: [],
-      currentItem: []
-    }
-  }
-
   
 
-  componentDidMount() {
-    axios.get('/api/inventory').then((response) => {
-      console.log(response.data)
-      this.setState({
-        inventory: response.data
-      })
-    })
-    .catch(err => {
-      console.log(err)
-  })
-    };
 
-    
 
   
 
@@ -41,8 +21,11 @@ export default class App extends Component {
     return (
       <div className='main-container'>
         <Header />
-        <Dashboard inventory={this.state.inventory} getInventory={this.componentDidMount}/>
-        <Form getInventory={this.componentDidMount} current={this.state.currentItem}/>
+        <Switch>
+        <Route exact path='/' component={Dashboard} />
+        <Route path='/add' component={Form}/>
+        <Route path='/edit/:id' component={Form} />
+        </Switch>
       </div>
     )
   }
