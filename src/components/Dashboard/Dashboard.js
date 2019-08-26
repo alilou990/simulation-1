@@ -45,7 +45,6 @@ class Dashboard extends Component {
           })
     return (
        <div>
-           <h3>Dashboard</h3>
            {mappedInventory}
        </div>
     )
