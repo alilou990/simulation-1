@@ -4,4 +4,14 @@ header {
     background: #AB2A19;
     font-size: 30px;
     color: white;
+    display: flex;
+    align-items: center;
+}
+
+header > h3 {
+    margin: 20px;
+}
+
+.header-button {
+    margin: 20px;
 }

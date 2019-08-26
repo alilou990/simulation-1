@@ -8,6 +8,7 @@ export default class Form extends Component {
     constructor(){
         super();
         this.state = {
+          inventory: [],
           img: '',
           name: '',
           price: 0,
@@ -21,7 +22,7 @@ export default class Form extends Component {
           axios.get(`/api/inventory/${id}`)
             .then(res => {
               this.setState({
-                ...res.data,
+                inventory: res.data,
                 edit: true
               })
             })
@@ -76,6 +77,9 @@ export default class Form extends Component {
           price: this.state.price
         }
         axios.put(`/api/inventory/${id}`, body)
+          .catch(err => {
+            console.log(err)
+      })
       }
 
      
@@ -83,7 +87,8 @@ export default class Form extends Component {
 
     render() {
         return (
-            <div className='form-container'>
+           <div className='large-form-container'>
+              <div className='form-container'>
                 <label>Image URL:</label>
                 <input name="img" onChange={(event) => this.handleOnChange(event)} value={this.state.img}/>
                 <label>Product Name:</label>
@@ -98,7 +103,7 @@ export default class Form extends Component {
                   : <Link to='/'><button onClick={()=> this.updateItem(this.props.match.params.id)}>Save Changes</button></Link>
                   }
                 </div>
-                
+            </div>
             </div>
         )
     }

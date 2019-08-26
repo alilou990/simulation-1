@@ -6,8 +6,8 @@ const Header = () => {
     return (
         <header>
             <h3>SHELFIE</h3>
-            <Link to='/'><button>Dashboard</button></Link>
-            <Link to='/add'><button>Add to Inventory</button></Link>
+            <Link to='/'><button className='header-button'>Dashboard</button></Link>
+            <Link to='/add'><button className='header-button'>Add to Inventory</button></Link>
         </header>
     )
 }
